@@ -16,12 +16,8 @@ angular.module('linkify')
 	        return url;
 	      }
 
-        // adding the slash in the # characters allowed afterwards in the regex
-        // without it the url extracted from:
-        // "hello this is the https://mystuff.bublup.com/mybublup/#/mystuff/top/folder url"
-        // becomes https://mystuff.bublup.com/mybublup/#
-        // but with the fix https://mystuff.bublup.com/mybublup/#/mystuff/top/folder
-        var _text = _str.replace( /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w\/]|%[a-fA-f\d]{2,2})*)?/ig, function(url) {
+        // https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+        var _text = _str.replace( /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm, function(url) {
 	            var wrap = document.createElement('div');
 	            var anch = document.createElement('a');
 	            anch.href = addProtocol(url);
