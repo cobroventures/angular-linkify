@@ -16,8 +16,14 @@ angular.module('linkify')
 	        return url;
 	      }
 
-        // https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-        var _text = _str.replace( /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm, function(url) {
+        // Matches all of the following:
+        // https://mystuff.bublupstaging.com/mybublup/#/mystuff/top/folder
+        // www.bublup.com
+        // www.test.com
+        // test.com
+        // testing.this
+        // https://www.linkedin.com/feed/update/urn:li:activity:7236372257726496768/
+        var _text = _str.replace( /(?:(?:https?|ftp):\/\/)?[\w/\-?=%#:.]+\.[\w/\-&?=%#:.]+/igm, function(url) {
 	            var wrap = document.createElement('div');
 	            var anch = document.createElement('a');
 	            anch.href = addProtocol(url);
